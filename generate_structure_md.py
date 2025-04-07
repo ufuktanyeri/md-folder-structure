@@ -1,5 +1,8 @@
 import os
+import tkinter as tk
+from tkinter import filedialog
 
+# Klasör yapısını metin olarak oluşturur
 def list_dir(path, indent=0):
     output = ""
     prefix = "│   " * (indent - 1) + "├── " if indent > 0 else ""
@@ -13,17 +16,49 @@ def list_dir(path, indent=0):
                 file_prefix = "│   " * indent + "└── "
                 output += f"{file_prefix}{item}\n"
     except PermissionError:
-        pass
+        output += f"{'│   ' * indent}[Erişim Engellendi]\n"
     return output
 
-def export_to_md(base_path, output_file="structure.md"):
+# Kullanıcının kaydedeceği dosya adını alır (.md olarak)
+def select_output_file():
+    root = tk.Tk()
+    root.attributes("-topmost", True)
+    root.withdraw()
+    filetypes = [("Markdown files", "*.md")]
+    filepath = filedialog.asksaveasfilename(
+        title="Çıktı dosyasını kaydet (.md)",
+        defaultextension=".md",
+        filetypes=filetypes
+    )
+    root.destroy()
+    return filepath
+
+# Klasör seçme penceresi
+def select_folder():
+    root = tk.Tk()
+    root.attributes("-topmost", True)
+    root.withdraw()
+    folder_path = filedialog.askdirectory(title="Bir klasör seçin")
+    root.destroy()
+    return folder_path
+
+# Yapıyı .md dosyasına yazar
+def export_to_md(base_path, output_file):
     tree = list_dir(base_path)
     with open(output_file, "w", encoding="utf-8") as f:
         f.write("```md\n")
         f.write(tree)
         f.write("```\n")
-    print(f"Yapı '{output_file}' dosyasına yazıldı.")
+    print(f"✅ Markdown dosyası oluşturuldu → {output_file}")
 
-# 🔧 Örnek kullanım
+# Ana akış
 if __name__ == "__main__":
-    export_to_md("uyap-toplu-indir")  # 👈 Dilersen burayı input() ile de yapabiliriz
+    selected_path = select_folder()
+    if selected_path and os.path.isdir(selected_path):
+        output_file = select_output_file()
+        if output_file:
+            export_to_md(selected_path, output_file)
+        else:
+            print("❌ Dosya kaydetme iptal edildi.")
+    else:
+        print("❌ Geçersiz klasör seçimi.")
