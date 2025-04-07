@@ -84,7 +84,7 @@ def export_to_md(base_path, output_file):
         else:
             f.write(tree)
 
-    print(f"✅ Dosya oluşturuldu → {output_file}")
+    print(f"Dosya oluşturuldu → {output_file}")
 
     # Bilgilendirme mesajı
     message_root = create_hidden_root()
