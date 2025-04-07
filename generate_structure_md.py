@@ -95,7 +95,7 @@ def export_to_md(base_path, output_file):
 if __name__ == "__main__":
     selected_path = select_folder()
     if not selected_path or not os.path.isdir(selected_path):
-        print("❌ Geçersiz klasör seçimi.")
+        print("Geçersiz klasör seçimi.")
         exit()
 
     base_name = os.path.basename(selected_path.rstrip("/\\"))
@@ -105,4 +105,4 @@ if __name__ == "__main__":
     if output_file:
         export_to_md(selected_path, output_file)
     else:
-        print("❌ Dosya kaydetme iptal edildi.")
+        print("Dosya kaydetme iptal edildi.")
