@@ -1,9 +1,35 @@
-# Sanal ortam klasörü
-venv/
-
-# Python cache dosyaları
+# === PYTHON DERLENMİŞ DOSYALAR ===
 __pycache__/
-*.pyc
+*.py[cod]
+*.so
 
-# IDE ayar dosyaları
+# === SANAL ORTAM ===
+venv/
+.env
+*.env
+
+# === LOG VE TEMP DOSYALARI ===
+*.log
+*.tmp
+*.bak
+
+# === DERLEME/DAĞITIM ===
+build/
+dist/
+*.egg-info/
+*.spec
+
+# === IDE / EDITÖR AYARLARI ===
 .vscode/
+.idea/
+
+# === GİZLİ ANAHTARLAR, TOKENLAR ===
+*.key
+*.pem
+secrets.*
+token.*
+.env.*
+
+# === OS ÖZGÜ DOSYALAR ===
+.DS_Store
+Thumbs.db
